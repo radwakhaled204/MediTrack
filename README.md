@@ -1,4 +1,4 @@
-# 🏥 MediTrack API
+# 🏥 MediTrack API Built with ❤️ by Radwa Khaled
 
 **MediTrack** is a comprehensive Hospital Management System (HMS) built with **ASP.NET Core 8.0**, designed to help clinics and hospitals manage their core operations digitally and efficiently.  
 It supports Docker containers for easy deployment and scalability.
