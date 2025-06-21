@@ -1,0 +1,12 @@
+.vs/
+*.user
+*.suo
+bin/
+obj/
+out/
+*.dockerignore
+docker-compose*
+*.log
+Thumbs.db
+.DS_Store
+
