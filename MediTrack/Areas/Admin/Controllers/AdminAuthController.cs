@@ -3,7 +3,7 @@
 namespace MediTrack.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("api/[area]/[contoller]")]
+    [Route("api/[area]/[controller]")]
     [ApiController]
 
     public class AdminAuthController : Controller
