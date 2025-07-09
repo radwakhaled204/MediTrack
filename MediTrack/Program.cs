@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using MediTrack.Areas.User.Data;
+using MediTrack.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-
+//builder.Services.AddScoped<IUserAuthRepository , UserAuthRepository>();
+builder.Services.AddScoped(typeof(IDataRepository<>) , typeof(DataRepository<>));
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyData")));
 
 var app = builder.Build();
