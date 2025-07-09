@@ -11,7 +11,7 @@ namespace MediTrack.Areas.User.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new {Message="This is User Area"});
+            return Ok(new { message= "this user area" });
         }
     }
 }
