@@ -1,4 +1,6 @@
 ﻿using MediTrack.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 namespace MediTrack.Data
 {
     public class UserAuthRepository : IUserAuthRepository
@@ -8,5 +10,11 @@ namespace MediTrack.Data
         {
             _db = db;
         }
+         //public Task<IActionResult> Register (User user , string password)
+         //{
+            
+         //}
+
+
     }
 }
