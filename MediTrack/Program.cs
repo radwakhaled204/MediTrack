@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MediTrack.Data;
+using MediTrack.Configurations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,20 @@ builder.Services.AddControllers();
 //builder.Services.AddScoped<IUserAuthRepository , UserAuthRepository>();
 builder.Services.AddScoped(typeof(IDataRepository<>) , typeof(DataRepository<>));
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyData")));
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(JwtSettings)));
+
+var jwtSettings = builder.Configuration.GetSection(nameof(JwtSettings));
+var secretKey = jwtSettings["SecretKey"];
+
+//Add JWT Bearer Authentication
+builder.Services.AddAuthentication(option =>
+{
+   option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+   option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+});
+
+
 
 var app = builder.Build();
 
