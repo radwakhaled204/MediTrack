@@ -1,4 +1,6 @@
-﻿using MediTrack.Models;
+﻿using System.Security.Cryptography;
+using System.Text;
+using MediTrack.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 namespace MediTrack.Data
@@ -10,10 +12,16 @@ namespace MediTrack.Data
         {
             _db = db;
         }
-         //public Task<IActionResult> Register (User user , string password)
-         //{
-            
-         //}
+
+        public void CreateHashPassword(string newPassword, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(newPassword));
+            }
+
+        }
 
 
     }
