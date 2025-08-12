@@ -3,6 +3,7 @@ using System.Text;
 using MediTrack.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace MediTrack.Data
 {
     public class UserAuthRepository : IUserAuthRepository
@@ -31,7 +32,10 @@ namespace MediTrack.Data
             }
 
         }
-
+        public async Task<bool> IfUserExist(string email)
+        {
+            return await _db.users.AnyAsync(u => u.email == email);
+        }
 
     }
 }
