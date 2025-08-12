@@ -12,6 +12,15 @@ namespace MediTrack.Data
         {
             _db = db;
         }
+        public async Task<User> Register(User user, string password)
+        {
+            CreateHashPassword(password, out byte[] passwordHash, out byte[] passwordSalt);
+            user.password_hash = passwordHash;
+            user.password_salt = passwordSalt;
+            await _db.AddAsync(user);
+            await _db.SaveChangesAsync();
+            return user;
+        }
 
         public void CreateHashPassword(string newPassword, out byte[] passwordHash, out byte[] passwordSalt)
         {
