@@ -10,14 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-//builder.Services.AddScoped<IUserAuthRepository , UserAuthRepository>();
+//non-genaric
+builder.Services.AddScoped<IUserAuthRepository, UserAuthRepository>();
 builder.Services.AddScoped(typeof(IDataRepository<>) , typeof(DataRepository<>));
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyData")));
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(nameof(JwtSettings)));
 
-var jwtSettings = builder.Configuration.GetSection(nameof(JwtSettings));
-var secretKey = jwtSettings["SecretKey"];
-
+var Jwtsettings = builder.Configuration.GetSection(nameof(JwtSettings));
+var secretkey = Jwtsettings["SecretKey"];
 //Add JWT Bearer Authentication
 builder.Services.AddAuthentication(option =>
 {
