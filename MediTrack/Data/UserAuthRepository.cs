@@ -32,7 +32,17 @@ namespace MediTrack.Data
                 return hash.SequenceEqual(storedHash);
             }
         }
+        public async Task<User> Login(string email, string password)
+        {
+            var user = await _db.users.FirstOrDefaultAsync(e => e.email == email);
+            if (user == null || !VerifyPassword(password, user.password_hash, user.password_salt))
+            {
+                return null;
 
+            }
+            return user;
+
+        }
         public void CreateHashPassword(string newPassword, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
