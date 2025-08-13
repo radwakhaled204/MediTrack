@@ -23,15 +23,7 @@ namespace MediTrack.Data
             return user;
         }
 
-        public bool VerifyPassword(string password, byte[] storedHash, byte[] storedSalt)
-        {
 
-            using (var hmac = new HMACSHA512(storedSalt))
-            {
-                var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return hash.SequenceEqual(storedHash);
-            }
-        }
         public async Task<User> Login(string email, string password)
         {
             var user = await _db.users.FirstOrDefaultAsync(e => e.email == email);
@@ -51,6 +43,16 @@ namespace MediTrack.Data
                 passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(newPassword));
             }
 
+        }
+        public bool VerifyPassword(string password, byte[] storedHash, byte[] storedSalt)
+        {
+
+            using (var hmac = new HMACSHA512(storedSalt))
+            {
+                var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                var returnedHash = hash.SequenceEqual(storedHash);
+                return returnedHash;
+            }
         }
         public async Task<bool> IfUserExist(string email)
         {
