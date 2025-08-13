@@ -44,7 +44,7 @@ namespace MediTrack.Data
             }
 
         }
-        public bool VerifyPassword(string password, byte[] storedHash, byte[] storedSalt)
+        private bool VerifyPassword(string password, byte[] storedHash, byte[] storedSalt)
         {
 
             using (var hmac = new HMACSHA512(storedSalt))
