@@ -23,6 +23,16 @@ namespace MediTrack.Data
             return user;
         }
 
+        public bool VerifyPassword(string password, byte[] storedHash, byte[] storedSalt)
+        {
+
+            using (var hmac = new HMACSHA512(storedSalt))
+            {
+                var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return hash.SequenceEqual(storedHash);
+            }
+        }
+
         public void CreateHashPassword(string newPassword, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
