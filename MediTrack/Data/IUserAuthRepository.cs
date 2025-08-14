@@ -3,10 +3,10 @@ namespace MediTrack.Data
 {
     public interface IUserAuthRepository
     {
-        Task<User> Register(User user, string password);
+        Task<User> RegisterUser(User user, string password);
         Task<bool> IfUserExist(string email);
 
-        Task<User> Login(string email, string password);
+        Task<User> LoginUser(string email, string password);
         //Task<User> Logout();
 
 
