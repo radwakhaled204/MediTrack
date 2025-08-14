@@ -13,7 +13,7 @@ namespace MediTrack.Data
         {
             _db = db;
         }
-        public async Task<User> Register(User user, string password)
+        public async Task<User> RegisterUser(User user, string password)
         {
             CreateHashPassword(password, out byte[] passwordHash, out byte[] passwordSalt);
             user.password_hash = passwordHash;
@@ -24,7 +24,7 @@ namespace MediTrack.Data
         }
 
 
-        public async Task<User> Login(string email, string password)
+        public async Task<User> LoginUser(string email, string password)
         {
             var user = await _db.users.FirstOrDefaultAsync(e => e.email == email);
             if (user == null || !VerifyPassword(password, user.password_hash, user.password_salt))
