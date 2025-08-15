@@ -47,9 +47,11 @@ namespace MediTrack.Areas.User.Controllers
         public async Task<IActionResult> Register(RegisterDto registerdto)
         {
             if (registerdto == null) {  return BadRequest(); }
+            registerdto.email = registerdto.email.ToLower();
             var userExist = await _userAuthRepository.IfUserExist(registerdto.email);
             if (userExist)
             {
+                
                 return BadRequest("User Already Exist");
             }
             var user = new MediTrack.Models.User
@@ -58,6 +60,7 @@ namespace MediTrack.Areas.User.Controllers
                 user_name = registerdto.user_name,
                 JoinedDate = DateTime.UtcNow,
             };
+            await _userAuthRepository.RegisterUser(user, registerdto.password);
             return Ok(user);
         }
         
