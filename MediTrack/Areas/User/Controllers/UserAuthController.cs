@@ -5,6 +5,7 @@ using MediTrack.Models;
 using MediTrack.Services;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MediTrack.Areas.User.Controllers
 {
@@ -15,18 +16,50 @@ namespace MediTrack.Areas.User.Controllers
     public class UserAuthController : ControllerBase
     {
         private readonly IUserAuthRepository _userAuthRepository;
+        private readonly IJwtTokenService _servicesJwt;
         private readonly IDataRepository<MediTrack.Models.User> _dataRepository;
-        public UserAuthController(IUserAuthRepository userAuthRepository , IDataRepository<MediTrack.Models.User> dataRepository)
+        public UserAuthController(IUserAuthRepository userAuthRepository, IJwtTokenService servicesJwt , IDataRepository<MediTrack.Models.User> dataRepository)
         {
             _userAuthRepository = userAuthRepository;
+            _servicesJwt = servicesJwt;
             _dataRepository = dataRepository;
         }
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(new { message= "this user area" });
-        }
 
+        [HttpPost("loginUser")]
+        public async Task<IActionResult> Login (LoginDto logindto)
+        {
+            var user = await _userAuthRepository.LoginUser(logindto.email, logindto.password);
+            if ( user == null)
+            {
+               return Unauthorized();
+            }
+            var claims = new[]
+            {
+            new Claim(ClaimTypes.NameIdentifier, user.user_id.ToString()),
+            new Claim(ClaimTypes.Email, user.email),
+            new Claim(ClaimTypes.Name, user.user_name),
+            new Claim(ClaimTypes.Role, "User")
+            };
+            var token = _servicesJwt.GenerateJWT(claims);
+            return Ok(new { token });
+        }
+        [HttpPost("registerUser")]
+        public async Task<IActionResult> Register(RegisterDto registerdto)
+        {
+            if (registerdto == null) {  return BadRequest(); }
+            var userExist = await _userAuthRepository.IfUserExist(registerdto.email);
+            if (userExist)
+            {
+                return BadRequest("User Already Exist");
+            }
+            var user = new MediTrack.Models.User
+            {
+                email = registerdto.email,
+                user_name = registerdto.user_name,
+                JoinedDate = DateTime.UtcNow,
+            };
+            return Ok(user);
+        }
         
         
     }
