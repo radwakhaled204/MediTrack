@@ -58,6 +58,23 @@ namespace MediTrack.Data
         {
             return await _db.users.AnyAsync(u => u.email == email);
         }
+        public async Task<string> ChangePasswordForUser(int userId ,string oldPasssword, string newPassword)
+        {
+            var user = await _db.users.FirstOrDefaultAsync(u => u.user_id == userId);
+            if (user == null) return "User not found.";
 
+            if (!VerifyPassword(oldPasssword , user.password_hash , user.password_salt)) 
+                return "Old password is incorrect.";
+
+            else
+            {
+                 CreateHashPassword(newPassword, out byte[] newHash, out byte[] newSalt);
+                user.password_hash = newHash;   
+                user.password_salt = newSalt;
+                await _db.SaveChangesAsync();
+            }
+            return "Password Changed Successfully.";
+
+        }
     }
 }
