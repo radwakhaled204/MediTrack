@@ -63,7 +63,17 @@ namespace MediTrack.Areas.User.Controllers
             await _userAuthRepository.RegisterUser(user, registerdto.password);
             return Ok(user);
         }
-        
-        
+        [HttpPost("changepassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto changepassworddto)
+        {
+            
+            if (changepassworddto == null)
+            {
+                return BadRequest("Enter Your Data");
+            }
+            var user = await _userAuthRepository.ChangePasswordForUser(changepassworddto.user_id, changepassworddto.old_password, changepassworddto.new_password);
+            return Ok(user);
+        }
+
     }
 }
