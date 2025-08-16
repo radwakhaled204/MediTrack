@@ -7,6 +7,7 @@ namespace MediTrack.Data
         Task<bool> IfUserExist(string email);
 
         Task<User> LoginUser(string email, string password);
+        Task<string> ChangePasswordForUser(int userId, string oldPasssword, string newPassword);
         //Task<User> Logout();
 
 
