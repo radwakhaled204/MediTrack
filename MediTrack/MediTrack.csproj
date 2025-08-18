@@ -22,4 +22,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Tests\" />
+    <Folder Include="WebAPI\Areas\User\" />
+    <Folder Include="WebAPI\Filters\" />
+    <Folder Include="WebAPI\Mappings\" />
+  </ItemGroup>
+
 </Project>

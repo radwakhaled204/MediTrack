@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using MediTrack.Data;
-using MediTrack.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using MediTrack.Services;
+using MediTrack.Core.Services;
+using MediTrack.Core.Interfaces;
+using MediTrack.Infrastructure.Data;
+using MediTrack.Infrastructure.Data.Configurations;
+using MediTrack.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
