@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using MediTrack.Core.Interfaces;
-using MediTrack.Models;
+using MediTrack.Core.Models;
 using Microsoft.IdentityModel.Tokens;
 
 namespace MediTrack.Core.Services
