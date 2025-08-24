@@ -13,9 +13,9 @@ namespace MediTrack.Core.Models
         public byte[] password_salt { get; set; }
         [Required]
         public string email { get; set; }
-        public string? user_code { get; set; }
-        public int? phone_num { get; set; }
-        public DateTime JoinedDate { get; set; }
+
+        public DateTime joinedDate { get; set; }
+        public string role { get; set; }
 
 
 
