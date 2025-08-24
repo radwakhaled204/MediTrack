@@ -6,6 +6,9 @@ namespace MediTrack.Infrastructure.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<User> users { get; set; }
+        public DbSet<Patient> patients { get; set; }
+        public DbSet<Insurance> insurances { get; set; }
+
     }
 
 }
