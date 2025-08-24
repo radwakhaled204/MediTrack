@@ -56,7 +56,7 @@ namespace MediTrack.WebAPI.Controllers
             {
                 email = registerdto.email,
                 user_name = registerdto.user_name,
-                JoinedDate = DateTime.UtcNow,
+                joinedDate = DateTime.UtcNow,
             };
             await _userAuthRepository.RegisterUser(user, registerdto.password);
             return Ok(user);
