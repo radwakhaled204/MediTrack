@@ -9,6 +9,26 @@ namespace MediTrack.Infrastructure.Data
         public DbSet<Patient> patients { get; set; }
         public DbSet<Insurance> insurances { get; set; }
 
+
+        //connect two tables with ForeignKey
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Patient>()
+                .HasOne(p => p.User)
+                .WithOne()
+                .HasForeignKey<Patient>(p => p.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+
+            modelBuilder.Entity<Patient>()
+                .HasOne(p => p.Insurance)
+                .WithOne()
+                .HasForeignKey<Patient>(p => p.InsuranceId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+        }
     }
 
 }
