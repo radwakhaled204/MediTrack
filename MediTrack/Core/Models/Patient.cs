@@ -1,17 +1,25 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace MediTrack.Core.Models
 {
     public class Patient
     {
         [Key]
-        public int patient_id { get; set; }
-        public string full_name { get; set; }
-        public DateTime birth_date { get; set; }
-        public string gender { get; set; }
-        public string? patient_code { get; set; }
-        public int? phone_num { get; set; }
-        public string? address { get; set; }
-        public User user_id { get; set; }
-        public Insurance insurance_id { get; set; }
+        public int PatientId { get; set; }
+
+        public string FullName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Gender { get; set; }
+        public string? PatientCode { get; set; }
+        public int? PhoneNum { get; set; }
+        public int? NationalId { get; set; }
+        public string? Address { get; set; }
+
+        // FK + Navigation property
+        public int? UserId { get; set; }
+        public User User { get; set; }
+
+        public int? InsuranceId { get; set; }
+        public Insurance Insurance { get; set; }
     }
 }
