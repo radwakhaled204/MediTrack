@@ -5,19 +5,18 @@ namespace MediTrack.Core.Models
     public class User
     {
         [Key]
-        public int user_id { get; set; }
+        public int UserId { get; set; }
+
         [Required]
-        public string user_name { get; set; }
+        public string UserName { get; set; }
 
-        public byte[] password_hash { get; set; }
-        public byte[] password_salt { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
+
         [Required]
-        public string email { get; set; }
+        public string Email { get; set; }
 
-        public DateTime joinedDate { get; set; }
-        public string role { get; set; }
-
-
-
+        public DateTime JoinedDate { get; set; }
+        public string Role { get; set; }
     }
 }
