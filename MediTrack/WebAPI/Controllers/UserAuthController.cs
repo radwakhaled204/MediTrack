@@ -33,9 +33,9 @@ namespace MediTrack.WebAPI.Controllers
             }
             var claims = new[]
             {
-            new Claim(ClaimTypes.NameIdentifier, user.user_id.ToString()),
-            new Claim(ClaimTypes.Email, user.email),
-            new Claim(ClaimTypes.Name, user.user_name),
+            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+            new Claim(ClaimTypes.Email, user.Email),
+            new Claim(ClaimTypes.Name, user.UserName),
             new Claim(ClaimTypes.Role, "User")
             };
             var token = _servicesJwt.GenerateJWT(claims);
@@ -54,9 +54,9 @@ namespace MediTrack.WebAPI.Controllers
             }
             var user = new Core.Models.User
             {
-                email = registerdto.email,
-                user_name = registerdto.user_name,
-                joinedDate = DateTime.UtcNow,
+                Email = registerdto.email,
+                UserName = registerdto.user_name,
+                JoinedDate = DateTime.UtcNow,
             };
             await _userAuthRepository.RegisterUser(user, registerdto.password);
             return Ok(user);
