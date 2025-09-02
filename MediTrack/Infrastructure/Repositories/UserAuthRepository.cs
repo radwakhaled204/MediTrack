@@ -18,8 +18,8 @@ namespace MediTrack.Infrastructure.Repositories
         public async Task<User> RegisterUser(User user, string password)
         {
             CreateHashPassword(password, out byte[] passwordHash, out byte[] passwordSalt);
-            user.password_hash = passwordHash;
-            user.password_salt = passwordSalt;
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
             await _db.AddAsync(user);
             await _db.SaveChangesAsync();
             return user;
@@ -28,8 +28,8 @@ namespace MediTrack.Infrastructure.Repositories
 
         public async Task<User> LoginUser(string email, string password)
         {
-            var user = await _db.users.FirstOrDefaultAsync(e => e.email == email);
-            if (user == null || !VerifyPassword(password, user.password_hash, user.password_salt))
+            var user = await _db.users.FirstOrDefaultAsync(e => e.Email == email);
+            if (user == null || !VerifyPassword(password, user.PasswordHash, user.PasswordSalt))
             {
                 return null;
 
@@ -58,21 +58,21 @@ namespace MediTrack.Infrastructure.Repositories
         }
         public async Task<bool> IfUserExist(string email)
         {
-            return await _db.users.AnyAsync(u => u.email == email);
+            return await _db.users.AnyAsync(u => u.Email == email);
         }
         public async Task<string> ChangePasswordForUser(int userId, string oldPasssword, string newPassword)
         {
-            var user = await _db.users.FirstOrDefaultAsync(u => u.user_id == userId);
+            var user = await _db.users.FirstOrDefaultAsync(u => u.UserId == userId);
             if (user == null) return "User not found.";
 
-            if (!VerifyPassword(oldPasssword, user.password_hash, user.password_salt))
+            if (!VerifyPassword(oldPasssword, user.PasswordHash, user.PasswordSalt))
                 return "Old password is incorrect.";
 
             else
             {
                 CreateHashPassword(newPassword, out byte[] newHash, out byte[] newSalt);
-                user.password_hash = newHash;
-                user.password_salt = newSalt;
+                user.PasswordHash = newHash;
+                user.PasswordSalt = newSalt;
                 await _db.SaveChangesAsync();
             }
             return "Password Changed Successfully.";
