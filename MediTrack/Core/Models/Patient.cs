@@ -11,8 +11,8 @@ namespace MediTrack.Core.Models
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }
         public string? PatientCode { get; set; }
-        public int? PhoneNum { get; set; }
-        public int? NationalId { get; set; }
+        public string? PhoneNum { get; set; }
+        public string? NationalId { get; set; }
         public string? Address { get; set; }
 
         // FK + Navigation property
