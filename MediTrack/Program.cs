@@ -5,6 +5,7 @@ using MediTrack.Core.Interfaces;
 using MediTrack.Infrastructure.Data;
 using MediTrack.Infrastructure.Data.Configurations;
 using MediTrack.Infrastructure.Repositories;
+using MediTrack.WebAPI.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 //non-genaric
+
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IUserAuthRepository, UserAuthRepository>();
 builder.Services.AddScoped(typeof(IDataRepository<>) , typeof(DataRepository<>));
