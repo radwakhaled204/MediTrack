@@ -7,8 +7,8 @@ using MediTrack.WebAPI.Dtos;
 
 namespace MediTrack.WebAPI.Controllers
 {
-    [Area("User")]
-    [Route("api/[area]/[Controller]")]
+    
+    [Route("api/[Controller]")]
     [ApiController]
 
     public class UserAuthController : ControllerBase
